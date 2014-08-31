@@ -9,7 +9,11 @@ public class Move {
 		this.destination = destination;
 	}
 
-	public boolean isValid(Field[][] fields) {
+	public boolean isValid(Field[][] fields, Player player) {
+		if (player.getTeam() != piece.getTeam()) {
+			return false;
+		} 
+		
 		if (piece.getValidDestinationSet(fields).contains(destination)) {
 			return true;
 		}
