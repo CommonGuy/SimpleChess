@@ -61,7 +61,7 @@ public class Game {
 		player.setCheck(isCheck(player));
 		try {
 			Move move = player.getMove(board.getFields());
-			if (move.isValid(board.getOriginalFields())) {
+			if (move.isValid(board.getOriginalFields(), player)) {
 				if (board.movePiece(move) || move.getPiece().getType() == PieceType.PAWN) {
 					turnsWithoutCaptures = 0;
 				} else {
