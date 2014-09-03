@@ -2,7 +2,7 @@ package controller;
 
 public class Game {
 	private static final int MAX_TURNS_WITHOUT_CAPTURES = 100; //=50, counts for both teams
-	private static final int MAX_SECONDS = 2;
+	private static final int MAX_MILLISECONDS = 2000;
 	private Board board;
 	private Player[] players = new Player[2];
 	private int turnsWithoutCaptures = 0;
@@ -25,7 +25,7 @@ public class Game {
 			} else {
 				long start = System.currentTimeMillis();
 				makeTurn(players[i]);
-				if ((System.currentTimeMillis() - start) / 1000 > MAX_SECONDS) {
+				if ((System.currentTimeMillis() - start) / 1000 > MAX_MILLISECONDS) {
 					players[i].setDisqualified();
 				}
 				i = (i + 1) % 2;
