@@ -1,24 +1,24 @@
 package player;
 
+import java.util.List;
 import controller.*;
 
 public class SimplePlayer extends Player {
 
 	@Override
 	public Move getMove(Field[][] board) {
+		
+		//get all pieces of this player
+		List<Piece> pieces = this.getPieces(board);
 
-		for (Field[] rows : board) {
-			for (Field field : rows) {
-				if (field.hasPiece() && field.getPiece().getTeam() == getTeam()) {
-					Point[] destinations = 
-							field.getPiece().getValidDestinations(board);
-					if (destinations.length > 0) {
-						return new Move(field.getPiece(), destinations[0]);
-					}
-				}
+		for (Piece piece : pieces) {
+			Point[] destinations = piece.getValidDestinations(board);
+			if (destinations.length > 0) {
+				return new Move(piece, destinations[0]);
 			}
 		}
-		//should never happen, because it's a tie then
+
+		//should never happen, because the game is over then
 		return null;
 	}
 
