@@ -3,26 +3,18 @@ package player;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import controller.Field;
-import controller.Move;
-import controller.Player;
-import controller.Point;
+import controller.*;
 
 public class TestPlayer extends Player {
 
 	@Override
 	public Move getMove(Field[][] board) {
 		List<Move> possibleMoves = new ArrayList<>();
+		List<Piece> pieces = this.getPieces(board);
 		
-		for (Field[] rows : board) {
-			for (Field field : rows) {
-				if (field.hasPiece() && field.getPiece().getTeam() == getTeam()) {
-					for (Point p : field.getPiece().getValidDestinations(board)) {
-						Move move = new Move(field.getPiece(), p);
-						possibleMoves.add(move);
-					}
-				}
+		for (Piece piece : pieces) {
+			for (Point p : piece.getValidDestinationSet(board)) {
+				possibleMoves.add(new Move(piece, p));
 			}
 		}
 		
