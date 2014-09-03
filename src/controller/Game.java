@@ -25,7 +25,7 @@ public class Game {
 			} else {
 				long start = System.currentTimeMillis();
 				makeTurn(players[i]);
-				if ((System.currentTimeMillis() - start) / 1000 > MAX_MILLISECONDS) {
+				if ((System.currentTimeMillis() - start) > MAX_MILLISECONDS) {
 					players[i].setDisqualified();
 				}
 				i = (i + 1) % 2;
