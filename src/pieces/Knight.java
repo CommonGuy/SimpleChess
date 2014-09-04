@@ -12,8 +12,9 @@ public class Knight extends Piece {
 	}
 
 	@Override
-	public Set<Point> getValidDestinationSet(Field[][] fields) {
-		Set<Point> dests = new HashSet<>();
+	public Set<Point> getValidDestinationSet(Board board) {
+		Set<Point> dests = new HashSet<>();		
+		Field[][] fields = board.getFields();
 		Point pos = getPos();
 		Color enemy = getTeam().opposite();
 		
@@ -36,6 +37,10 @@ public class Knight extends Piece {
 			}
 		}
 		return dests;
+	}
+	
+	public Piece copy() {
+		return new Knight(getTeam(), getPos().copy());
 	}
 
 }
