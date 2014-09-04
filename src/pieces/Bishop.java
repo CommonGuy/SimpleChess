@@ -1,6 +1,7 @@
 package pieces;
 
 import controller.*;
+
 import java.util.Set;
 import java.util.HashSet;
 
@@ -11,8 +12,9 @@ public class Bishop extends Piece {
 	}
 
 	@Override
-	public Set<Point> getValidDestinationSet(Field[][] fields) {
-		Set<Point> dests = new HashSet<>();
+	public Set<Point> getValidDestinationSet(Board board) {
+		Set<Point> dests = new HashSet<>();		
+		Field[][] fields = board.getFields();
 		
 		//diagonal fields
 		dests.addAll(super.getDests(fields, true, false, true, false));
@@ -21,6 +23,10 @@ public class Bishop extends Piece {
 		dests.addAll(super.getDests(fields, true, false, true, true));
 		
 		return dests;
+	}
+	
+	public Piece copy() {
+		return new Bishop(getTeam(), getPos().copy());
 	}
 
 }
