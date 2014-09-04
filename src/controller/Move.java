@@ -9,13 +9,28 @@ public class Move {
 		this.destination = destination;
 	}
 
-	public boolean isValid(Field[][] fields, Player player) {
-		if (player.getTeam() != piece.getTeam()) {
+	public boolean isValid(Board board, Player player) {
+		if (piece == null || destination == null || player.getTeam() != piece.getTeam()) {
 			return false;
-		} 
+		}
 		
-		if (piece.getValidDestinationSet(fields).contains(destination)) {
+		if (!pieceExists(board, piece)) {
+			return false;
+		}
+		
+		if (piece.getValidDestinationSet(board).contains(destination)) {
 			return true;
+		}
+		return false;
+	}
+	
+	private boolean pieceExists(Board board, Piece piece) {
+		Point pos = piece.getPos();
+		if (pos != null && !piece.getPos().isOutside()) {
+			Field field = board.getFields()[pos.getX()][pos.getY()];
+			if (field.hasPiece() && field.getPiece().equals(piece)) {
+				return true;
+			}
 		}
 		return false;
 	}
