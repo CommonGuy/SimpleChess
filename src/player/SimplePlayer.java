@@ -1,16 +1,18 @@
 package player;
 
 import java.util.List;
-import controller.*;
+import controller.Board;
+import controller.Move;
+import controller.Piece;
+import controller.Player;
+import controller.Point;
 
 public class SimplePlayer extends Player {
 
 	@Override
-	public Move getMove(Field[][] board) {
-		
+	public Move getMove(Board board, Player enemy) {
 		//get all pieces of this player
 		List<Piece> pieces = this.getPieces(board);
-
 		for (Piece piece : pieces) {
 			Point[] destinations = piece.getValidDestinations(board);
 			if (destinations.length > 0) {
