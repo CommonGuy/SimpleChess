@@ -8,10 +8,10 @@ public abstract class Player {
 	private boolean check = false;
 	private boolean disqualified = false;
 	
-	public final List<Piece> getPieces(Field[][] fields) {
+	public final List<Piece> getPieces(Board board) {
 		List<Piece> pieces = new ArrayList<>();
 		
-		for (Field[] rows : fields) {
+		for (Field[] rows : board.getFields()) {
 			for (Field field : rows) {
 				if (field.hasPiece()) {
 					Piece piece = field.getPiece();
@@ -40,7 +40,7 @@ public abstract class Player {
 		return disqualified;
 	}
 	
-	final void setCheck(boolean check) {
+	public void setCheck(boolean check) {
 		this.check = check;
 	}
 	
@@ -48,7 +48,7 @@ public abstract class Player {
 		return check;
 	}
 	
-	public abstract Move getMove(Field[][] board);
+	public abstract Move getMove(Board board, Player enemy);
 	
 	public final String toString() {
 		return "Player " + getClass() + " (" + getTeam() + ")";
