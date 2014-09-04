@@ -12,8 +12,9 @@ public class Rook extends Piece {
 	}
 
 	@Override
-	public Set<Point> getValidDestinationSet(Field[][] fields) {
-		Set<Point> dests = new HashSet<>();
+	public Set<Point> getValidDestinationSet(Board board) {
+		Set<Point> dests = new HashSet<>();		
+		Field[][] fields = board.getFields();
 		
 		//horizontal fields
 		dests.addAll(super.getDests(fields, true, false, false, false));
@@ -24,5 +25,9 @@ public class Rook extends Piece {
 		dests.addAll(super.getDests(fields, false, false, true, true));
 		
 		return dests;
+	}
+	
+	public Piece copy() {
+		return new Rook(getTeam(), getPos().copy());
 	}
 }
