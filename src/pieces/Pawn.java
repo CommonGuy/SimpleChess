@@ -13,8 +13,9 @@ public class Pawn extends Piece {
 	}
 
 	@Override
-	public Set<Point> getValidDestinationSet(Field[][] fields) {
-		Set<Point> dests = new HashSet<>();
+	public Set<Point> getValidDestinationSet(Board board) {
+		Set<Point> dests = new HashSet<>();		
+		Field[][] fields = board.getFields();
 		
 		int offsetY = getTeam() == Color.WHITE ? 1 : -1;
 		Point pos = getPos();
@@ -66,5 +67,13 @@ public class Pawn extends Piece {
 			}
 		}
 		return false;
+	}
+	
+	public Piece copy() {
+		Pawn copy = new Pawn(getTeam(), getPos().copy());
+		if (hasMoved) {
+			copy.setMoved();
+		}
+		return copy;
 	}
 }
