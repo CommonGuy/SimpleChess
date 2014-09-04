@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.Arrays;
+
 import pieces.Bishop;
 import pieces.King;
 import pieces.Knight;
@@ -13,30 +15,14 @@ public class Board {
 	
 	public Board() {
 		fields = new Field[BOARD_LENGTH][BOARD_LENGTH];
-		for (int i = 0; i < BOARD_LENGTH; i++) {
-			for (int j = 0; j < BOARD_LENGTH; j++) {
-				Color color = (i + j) % 2 == 0 ? Color.BLACK : Color.WHITE;
-				fields[i][j] = new Field(new Point(i, j), color);
-			}
-		}
 	}
 	
-	// make 2d-array unmodifiable
 	public Field[][] getFields() {
-		Field[][] clonedFields = new Field[8][8];
-		for (int i = 0; i < BOARD_LENGTH; i++) {
-			clonedFields[i] = fields[i].clone();
-		}
-		return clonedFields;
-	}
-	
-	// make 2d-array unmodifiable
-	Field[][] getOriginalFields() {
 		return fields;
 	}
 	
 	//returns whether a piece got captured
-	boolean movePiece(Move move) {
+	public boolean movePiece(Move move) {
 		boolean capture = false;
 		Piece piece = move.getPiece();
 		Point dest = move.getDestination();
@@ -56,8 +42,20 @@ public class Board {
 		return capture;
 	}
 	
+	public boolean isCheck(Player player, Player enemy) {
+		Piece king = getKing(player);
+		Point pos = king.getPos();
+		
+		for (Piece piece : enemy.getPieces(this)) {
+			if (piece.getValidDestinationSet(this).contains(pos)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public Piece getKing(Player player) {
-		for (Piece piece : player.getPieces(getOriginalFields())) {
+		for (Piece piece : player.getPieces(this)) {
 			if (piece.getType() == PieceType.KING) {
 				return piece;
 			}
@@ -66,7 +64,24 @@ public class Board {
 		return null; //player lost the game
 	}
 	
-	void initializePieces() {
+	public Board copy() {
+		Board copy = new Board();
+		for (int i = 0; i < BOARD_LENGTH; i++) {
+			for (int j = 0; j < BOARD_LENGTH; j++) {
+				copy.fields[i][j] = fields[i][j].copy();
+			}
+		}
+		return copy;
+	}
+	
+	void initialize() {
+		for (int i = 0; i < BOARD_LENGTH; i++) {
+			for (int j = 0; j < BOARD_LENGTH; j++) {
+				Color color = (i + j) % 2 == 0 ? Color.BLACK : Color.WHITE;
+				fields[i][j] = new Field(new Point(i, j), color);
+			}
+		}
+		
 		fields[0][0].setPiece(new Rook(Color.WHITE, new Point(0,0)));
 		fields[1][0].setPiece(new Knight(Color.WHITE, new Point(1,0)));
 		fields[2][0].setPiece(new Bishop(Color.WHITE, new Point(2,0)));
@@ -104,4 +119,28 @@ public class Board {
 		}
 		return builder.toString();
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.hashCode(fields);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Board other = (Board) obj;
+		if (!Arrays.deepEquals(fields, other.fields))
+			return false;
+		return true;
+	}
+	
+	
 }
