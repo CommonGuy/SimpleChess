@@ -18,7 +18,7 @@ public class Field {
 		return piece != null;
 	}
 
-	void setPiece(Piece piece) {
+	public void setPiece(Piece piece) {
 		this.piece = piece;
 	}
 
@@ -28,6 +28,14 @@ public class Field {
 
 	public Color getColor() {
 		return color;
+	}
+	
+	public Field copy() {
+		Field copy = new Field(pos.copy(), color);
+		if (hasPiece()) {
+			copy.setPiece(piece.copy());
+		}
+		return copy;
 	}
 
 	@Override
