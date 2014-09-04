@@ -2,6 +2,8 @@ package pieces;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import controller.Board;
 import controller.Color;
 import controller.Field;
 import controller.Piece;
@@ -15,8 +17,9 @@ public class Queen extends Piece {
 	}
 
 	@Override
-	public Set<Point> getValidDestinationSet(Field[][] fields) {
-		Set<Point> dests = new HashSet<>();
+	public Set<Point> getValidDestinationSet(Board board) {
+		Set<Point> dests = new HashSet<>();		
+		Field[][] fields = board.getFields();
 		
 		//horizontal fields
 		dests.addAll(super.getDests(fields, true, false, false, false));
@@ -33,6 +36,10 @@ public class Queen extends Piece {
 		dests.addAll(super.getDests(fields, true, false, true, true));
 		
 		return dests;
+	}
+	
+	public Piece copy() {
+		return new Queen(getTeam(), getPos().copy());
 	}
 
 }
