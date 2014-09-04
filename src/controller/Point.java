@@ -26,6 +26,10 @@ public class Point {
 		return x < 0 || y < 0 || x > maxLength || y > maxLength;
 	}
 
+	public Point copy() {
+		return new Point(x, y);
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
