@@ -24,7 +24,7 @@ public abstract class Piece {
 		return pos;
 	}
 
-	void setPos(Point pos) {
+	public void setPos(Point pos) {
 		this.pos = pos;
 	}
 
@@ -32,10 +32,10 @@ public abstract class Piece {
 		return type;
 	}
 	
-	public abstract Set<Point> getValidDestinationSet(Field[][] fields);
+	public abstract Set<Point> getValidDestinationSet(Board board);
 	
-	public Point[] getValidDestinations(Field[][] fields) {
-		Set<Point> dests = getValidDestinationSet(fields);
+	public Point[] getValidDestinations(Board board) {
+		Set<Point> dests = getValidDestinationSet(board);
 		return dests.toArray(new Point[dests.size()]);
 	}
 	
@@ -63,6 +63,8 @@ public abstract class Piece {
 		}
 		return dests;
 	}
+	
+	public abstract Piece copy();
 	
 	@Override
 	public int hashCode() {
