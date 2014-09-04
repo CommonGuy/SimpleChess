@@ -3,12 +3,13 @@ package player;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
 import controller.*;
 
 public class TestPlayer extends Player {
 
 	@Override
-	public Move getMove(Field[][] board) {
+	public Move getMove(Board board, Player enemy) {
 		List<Move> possibleMoves = new ArrayList<>();
 		List<Piece> pieces = this.getPieces(board);
 		
