@@ -12,8 +12,9 @@ public class King extends Piece {
 	}
 
 	@Override
-	public Set<Point> getValidDestinationSet(Field[][] fields) {
-		Set<Point> dests = new HashSet<>();
+	public Set<Point> getValidDestinationSet(Board board) {
+		Set<Point> dests = new HashSet<>();		
+		Field[][] fields = board.getFields();
 		Point pos = getPos();
 		Color enemy = getTeam().opposite();
 		
@@ -29,6 +30,10 @@ public class King extends Piece {
 			}
 		}
 		return dests;
+	}
+	
+	public Piece copy() {
+		return new King(getTeam(), getPos().copy());
 	}
 
 }
