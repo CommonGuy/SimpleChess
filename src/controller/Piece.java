@@ -55,8 +55,11 @@ public abstract class Piece {
 				break;
 			}
 			Field field = fields[futurePos.getX()][futurePos.getY()];
-			if (!field.hasPiece() || field.getPiece().getTeam() == enemy) {
+			if (!field.hasPiece()) {
 				dests.add(futurePos);
+			} else if (field.getPiece().getTeam() == enemy) {
+				dests.add(futurePos);
+				break;
 			} else {
 				break;
 			}				
@@ -101,5 +104,4 @@ public abstract class Piece {
 	public String toString() {
 		return team + " " + type + " on " + pos.toString();
 	}
-	
 }
