@@ -34,6 +34,9 @@ public class Board {
 			} else {
 				fields[dest.getX()][dest.getY()].setPiece(piece);
 			}
+			if (piece.getType() == PieceType.PAWN) {
+				((Pawn)piece).setMoved();
+			}
 			//remove piece on old field
 			fields[piece.getPos().getX()][piece.getPos().getY()].setPiece(null);
 			//update position
@@ -140,7 +143,5 @@ public class Board {
 		if (!Arrays.deepEquals(fields, other.fields))
 			return false;
 		return true;
-	}
-	
-	
+	}	
 }
