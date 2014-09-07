@@ -27,7 +27,7 @@ public class Controller {
 		for (int i = 0; i < classes.length - 1; i++) {
 			for (int j = i + 1; j < classes.length; j++) {
 				for (int k = 0; k < GAMES_PER_PAIR; k++) {
-					runGame(classes[i], classes[j], k>=GAMES_PER_PAIR);
+					runGame(classes[i], classes[j], k>=GAMES_PER_PAIR/2);
 				}
 			}
 		}
